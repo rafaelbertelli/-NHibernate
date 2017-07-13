@@ -16,7 +16,6 @@ namespace Loja.Infra
             Configuration cfg = new Configuration();
             cfg.Configure();
             cfg.AddAssembly(Assembly.GetExecutingAssembly());
-
             return cfg;
         }
 
