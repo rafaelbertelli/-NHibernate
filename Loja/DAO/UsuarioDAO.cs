@@ -20,15 +20,15 @@ namespace Loja.DAO
 
         public void Adiciona(Usuario usuario)
         {
-            ITransaction transacao = session.BeginTransaction();
-            session.Save(usuario);
+            ITransaction transacao = this.session.BeginTransaction();
+            this.session.Save(usuario);
             transacao.Commit();
         }
 
         public void Delete(Usuario usuario)
         {
-            ITransaction transacao = session.BeginTransaction();
-            session.Delete(usuario);
+            ITransaction transacao = this.session.BeginTransaction();
+            this.session.Delete(usuario);
             transacao.Commit();
         }
 

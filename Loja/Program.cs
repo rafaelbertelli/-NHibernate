@@ -17,13 +17,20 @@ namespace Loja
         {
             //NHibernateHelper.GeraSchema(); // Create table ::>> Drop the table if it exists
 
+
             ISession session = NHibernateHelper.AbreSession();
+
+
             UsuarioDAO usuarioDAO = new UsuarioDAO(session);
 
             Usuario usuario = new Usuario();
             usuario.Nome = "Rafael";
 
             usuarioDAO.Adiciona(usuario);
+
+
+            //Usuario usuario = session.Get<Usuario>(1);
+
 
             session.Close();
 
