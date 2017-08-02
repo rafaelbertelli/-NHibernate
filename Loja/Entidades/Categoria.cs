@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Loja.Entidades
 {
-    class Categoria
+    public class Categoria
     {
         public virtual int Id { get; set; }
         public virtual string Nome { get; set; }

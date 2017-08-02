@@ -73,6 +73,8 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
+    <EmbeddedResource Include="Mapeamentos\Produto.hbm.xml" />
+    <EmbeddedResource Include="Mapeamentos\Categoria.hbm.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
