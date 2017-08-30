@@ -3,6 +3,7 @@ using Loja.Entidades;
 using Loja.Infra;
 using NHibernate;
 using NHibernate.Cfg;
+using NHibernate.Transform;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,17 +42,70 @@ namespace Loja
             //session.Close();
 
             // 4
-            ISession session = NHibernateHelper.AbreSession();
-            ITransaction transacao = session.BeginTransaction();
+            //ISession session = NHibernateHelper.AbreSession();
+            //ITransaction transacao = session.BeginTransaction();
 
-            Categoria categoria = session.Load<Categoria>(1);
+            //Categoria categoria = session.Load<Categoria>(1);
             //IList<Produto> produtos = categoria.Produtos;
-            Console.WriteLine(categoria.Produtos.Count);
+            //Console.WriteLine(produtos.Count);
 
-            transacao.Commit();
+            //transacao.Commit();
+            //session.Close();
+
+            //Console.Read();
+
+            //5
+            //ISession session = NHibernateHelper.AbreSession();
+            //String hql = "from Produto p where p.Preco > :minimo and p.Categoria.Nome = :categoria order by p.Nome";
+            //IQuery query = session.CreateQuery(hql);
+            //query.SetParameter("minimo", 10);
+            //query.SetParameter("categoria", "Uma Categoria");
+
+            //IList <Produto> produtos = query.List<Produto>();
+
+            //foreach(Produto produto in produtos)
+            //{
+            //    Console.WriteLine(produto.Nome);
+            //}
+
+            //Console.Read();
+
+            //6
+            //ISession session = NHibernateHelper.AbreSession();
+            //String hql = "SELECT p.Categoria, count(p) from Produto p GROUP BY p.Categoria";
+            //IQuery query = session.CreateQuery(hql);
+            //IList<Object[]> resultados = query.List<Object[]>();
+
+            //IList<ProdutosPorCategoria> relatorio = new List<ProdutosPorCategoria>();
+
+            //foreach(Object[] resultado in resultados)
+            //{
+            //    ProdutosPorCategoria p = new ProdutosPorCategoria();
+            //    p.Categoria = (Categoria)resultado[0];
+            //    p.NumeroDePedido = (long)resultado[1];
+
+            //    relatorio.Add(p);
+            //}
+
+            //session.Close();
+            //Console.Read();
+
+            //7
+            ISession session = NHibernateHelper.AbreSession();
+            String hql = "SELECT p.Categoria as Categoria, count(p) as NumeroDePedido from Produto p GROUP BY p.Categoria";
+            IQuery query = session.CreateQuery(hql);
+            query.SetResultTransformer(Transformers.AliasToBean<ProdutosPorCategoria>());
+
+            IList<ProdutosPorCategoria> relatorio = query.List<ProdutosPorCategoria>();
+
             session.Close();
-
             Console.Read();
         }
+    }
+
+    public class ProdutosPorCategoria
+    {
+        public Categoria Categoria { get; set; }
+        public long NumeroDePedido { get; set; }
     }
 }
