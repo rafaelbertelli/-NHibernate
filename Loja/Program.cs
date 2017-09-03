@@ -91,12 +91,56 @@ namespace Loja
             //Console.Read();
 
             //7
-            ISession session = NHibernateHelper.AbreSession();
-            String hql = "SELECT p.Categoria as Categoria, count(p) as NumeroDePedido from Produto p GROUP BY p.Categoria";
-            IQuery query = session.CreateQuery(hql);
-            query.SetResultTransformer(Transformers.AliasToBean<ProdutosPorCategoria>());
+            //ISession session = NHibernateHelper.AbreSession();
+            //String hql = "SELECT p.Categoria as Categoria, count(p) as NumeroDePedido from Produto p GROUP BY p.Categoria";
+            //IQuery query = session.CreateQuery(hql);
+            //query.SetResultTransformer(Transformers.AliasToBean<ProdutosPorCategoria>());
 
-            IList<ProdutosPorCategoria> relatorio = query.List<ProdutosPorCategoria>();
+            //IList<ProdutosPorCategoria> relatorio = query.List<ProdutosPorCategoria>();
+
+            //session.Close();
+            //Console.Read();
+
+            //8
+            //ISession session = NHibernateHelper.AbreSession();
+            //String hql = "from Produto p join fetch p.Categoria";
+            //IQuery query = session.CreateQuery(hql);
+            //IList<Produto> produtos = query.List<Produto>();
+
+            //foreach(Produto produto in produtos)
+            //{
+            //    Console.WriteLine(produto.Nome + " - " + produto.Categoria.Nome);
+            //}
+
+            //session.Close();
+            //Console.Read();
+
+            //9
+            //ISession session = NHibernateHelper.AbreSession();
+            //String hql = "select distinct c from Categoria c join fetch c.Produtos";
+            //IQuery query = session.CreateQuery(hql);
+            //IList<Categoria> categorias = query.List<Categoria>();
+
+            //foreach (Categoria categoria in categorias)
+            //{
+            //    Console.WriteLine(categoria.Nome + " - " + categoria.Produtos.Count);
+            //}
+
+            //session.Close();
+            //Console.Read();
+
+            //10
+            ISession session = NHibernateHelper.AbreSession();
+            String hql = "select distinct c from Categoria c join fetch c.Produtos order by c.Nome";
+            IQuery query = session.CreateQuery(hql);
+            query.SetFirstResult(1);
+            query.SetMaxResults(1);
+            IList<Categoria> categorias = query.List<Categoria>();
+
+            foreach (Categoria categoria in categorias)
+            {
+                Console.WriteLine(categoria.Nome + " - " + categoria.Produtos.Count);
+            }
 
             session.Close();
             Console.Read();
