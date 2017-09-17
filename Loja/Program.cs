@@ -107,7 +107,7 @@ namespace Loja
             //IQuery query = session.CreateQuery(hql);
             //IList<Produto> produtos = query.List<Produto>();
 
-            //foreach(Produto produto in produtos)
+            //foreach (Produto produto in produtos)
             //{
             //    Console.WriteLine(produto.Nome + " - " + produto.Categoria.Nome);
             //}
@@ -130,20 +130,35 @@ namespace Loja
             //Console.Read();
 
             //10
-            ISession session = NHibernateHelper.AbreSession();
-            String hql = "select distinct c from Categoria c join fetch c.Produtos order by c.Nome";
-            IQuery query = session.CreateQuery(hql);
-            query.SetFirstResult(1);
-            query.SetMaxResults(1);
-            IList<Categoria> categorias = query.List<Categoria>();
+            //ISession session = NHibernateHelper.AbreSession();
+            //String hql = "select distinct c from Categoria c join fetch c.Produtos order by c.Nome";
+            //IQuery query = session.CreateQuery(hql);
+            //query.SetFirstResult(1);
+            //query.SetMaxResults(1);
+            //IList<Categoria> categorias = query.List<Categoria>();
 
-            foreach (Categoria categoria in categorias)
+            //foreach (Categoria categoria in categorias)
+            //{
+            //    Console.WriteLine(categoria.Nome + " := " + categoria.Produtos.Count);
+            //}
+
+            //session.Close();
+            //Console.Read();
+
+            //11
+            ISession session = NHibernateHelper.AbreSession();
+
+            ProdutoDAO dao = new ProdutoDAO(session);
+            IList<Produto> pd = dao.BuscaPorNomePrecoMinimoECategoria("", 0, "");
+
+            foreach (var produto in pd)
             {
-                Console.WriteLine(categoria.Nome + " - " + categoria.Produtos.Count);
+                Console.WriteLine("Nome: " + produto.Nome + " //// Preco Minimo: " + produto.Preco.ToString() + " //// Categoria: " + produto.Categoria.Nome);
             }
 
             session.Close();
             Console.Read();
+
         }
     }
 
