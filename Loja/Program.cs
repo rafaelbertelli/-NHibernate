@@ -146,18 +146,79 @@ namespace Loja
             //Console.Read();
 
             //11
+            //ISession session = NHibernateHelper.AbreSession();
+
+            //ProdutoDAO dao = new ProdutoDAO(session);
+            //IList<Produto> pd = dao.BuscaPorNomePrecoMinimoECategoria("", 0, "");
+
+            //foreach (var produto in pd)
+            //{
+            //    Console.WriteLine("Nome: " + produto.Nome + " //// Preco Minimo: " + produto.Preco.ToString() + " //// Categoria: " + produto.Categoria.Nome);
+            //}
+
+            //session.Close();
+            //Console.Read();
+
+            //12
+            //ISession session = NHibernateHelper.AbreSession();
+            //ISession session2 = NHibernateHelper.AbreSession();
+
+            //Categoria c = session.Get<Categoria>(1);
+            //Categoria c2 = session2.Get<Categoria>(1);
+
+            //Console.WriteLine(c.Produtos.Count);
+            //Console.WriteLine(c2.Produtos.Count);
+
+            //session.Close();
+            //Console.Read();
+
+            //13
+            //ISession session = NHibernateHelper.AbreSession();
+            //ISession session2 = NHibernateHelper.AbreSession();
+
+            //session.CreateQuery("from Usuario").SetCacheable(true).List<Usuario>();
+            //session2.CreateQuery("from Usuario").SetCacheable(true).List<Usuario>();
+
+
+            //session.Close();
+            //Console.Read();
+
+            //14
+            //ISession session = NHibernateHelper.AbreSession();
+            //ITransaction transacao = session.BeginTransaction();
+
+            //Venda venda = new Venda();
+            //Usuario cliente = session.Get<Usuario>(1);
+            //venda.Cliente = cliente;
+
+            //Produto p1 = session.Get<Produto>(1);
+            //Produto p2 = session.Get<Produto>(2);
+
+            //venda.Produtos.Add(p1);
+            //venda.Produtos.Add(p2);
+
+            //session.Save(venda);
+
+            //transacao.Commit();
+            //session.Close();
+            //Console.Read();
+
+            //15
             ISession session = NHibernateHelper.AbreSession();
+            ITransaction transacao = session.BeginTransaction();
 
-            ProdutoDAO dao = new ProdutoDAO(session);
-            IList<Produto> pd = dao.BuscaPorNomePrecoMinimoECategoria("", 0, "");
+            PessoaFisica murilo = new PessoaFisica();
+            murilo.Nome = "Murilo";
+            murilo.CPF = "123.456.789.00";
+            session.Save(murilo);
 
-            foreach (var produto in pd)
-            {
-                Console.WriteLine("Nome: " + produto.Nome + " //// Preco Minimo: " + produto.Preco.ToString() + " //// Categoria: " + produto.Categoria.Nome);
-            }
+            PessoaJuridica caelum = new PessoaJuridica();
+            caelum.Nome = "Caelum";
+            caelum.CNPJ = "123.456/0001-09";
+            session.Save(caelum);
 
+            transacao.Commit();
             session.Close();
-            Console.Read();
 
         }
     }

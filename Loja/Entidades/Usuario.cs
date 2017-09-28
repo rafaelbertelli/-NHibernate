@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace Loja.Entidades
 {
-    public class Usuario
+    public abstract class Usuario
     {
         public virtual int Id { get; set; }
+        public virtual string Tipo { get; set; }
         public virtual string Nome { get; set; }
     }
 }
